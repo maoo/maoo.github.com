@@ -1,0 +1,15 @@
+---
+layout: default
+comments: true
+---
+<div class="post">
+  {% include post_header.html %}
+  {% if page.primary_img %}
+  <img src="{{ page.primary_img }}" class="primary" />
+  {% endif %}
+  {{ content }}
+  {% if page.comments %}
+  {% include disqus.html %}
+  {% endif %}
+
+</div>

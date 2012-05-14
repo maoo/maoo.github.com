@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<div class="post">
+  <h1 class="title">
+    Posts filed under <a href="{{ page.url }}">#{{ page.title }}</a>
+  </h1>
+  <div id="archive" class="archive">
+    <ul>
+      {% for post in page.category %}
+        {% include listitem.html %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>

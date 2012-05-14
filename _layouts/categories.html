@@ -1,0 +1,11 @@
+---
+layout: default
+---
+<section>
+  <h1>Categories</h1>
+  <div>
+    {% for c in page.categories %}
+    <a href="/category/{{ c.title }}/" style="font-size:{{ c.size }}px">#{{ c.title }}</a>
+    {% endfor %}
+  </div>
+</section>

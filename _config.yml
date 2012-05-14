@@ -1,0 +1,5 @@
+pygments: true
+paginate: 7
+markdown: rdiscount
+permalink: /:year/:month/:day/:title
+server: false

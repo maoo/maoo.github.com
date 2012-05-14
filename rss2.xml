@@ -1,0 +1,7 @@
+---
+layout: feed
+paginate: 10
+---
+{% for post in site.posts limit:20 %}
+{% include feeditem.xml %}
+{% endfor %}
