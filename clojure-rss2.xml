@@ -1,7 +1,0 @@
----
-layout: feed
-permalink: /category/developer/clojure/feed
----
-{% for post in site.categories.clojure limit:20 %}
-{% include feeditem.xml %}
-{% endfor %}
