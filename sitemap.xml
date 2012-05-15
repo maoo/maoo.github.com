@@ -1,11 +1,9 @@
----
----
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">    
   <url>
     <loc>http://blog.session.it/</loc>
-    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <lastmod>2012-05-15T11:16:19+02:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,12 +13,12 @@
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
-  {% for post in site.posts limit:20 %}
+  
   <url>
-    <loc>http://blog.session.it{{ post.url }}/</loc>
-    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+    <loc>http://blog.session.it/2012/05/14/legacy-libraries-for-your-maven-build/</loc>
+    <lastmod>2012-05-14T00:00:00+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  {% endfor %}
+  
 </urlset>

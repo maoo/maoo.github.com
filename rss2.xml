@@ -1,7 +1,81 @@
----
-layout: feed
-paginate: 10
----
-{% for post in site.posts limit:20 %}
-{% include feeditem.xml %}
-{% endfor %}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title type="text" xml:lang="en">Word of MAOO</title>
+    <link type="application/atom+xml" href="http://blog.session.it/rss2/" rel="self"/>
+    <link type="text" href="http://blog.session.it" rel="alternate"/>
+    <updated>2012-05-15T11:16:19+02:00</updated>
+    <id>http://blog.session.it</id>
+    <author>
+        <name>Maurizio Pillitu</name>
+    </author>
+    <rights>Copyright (c) 2010-2011 Maurizio Pillitu</rights>
+    
+<entry>
+  <title>Legacy libraries for your maven build</title>
+  <link href="http://blog.session.it/2012/05/14/legacy-libraries-for-your-maven-build/"/>
+  <updated>2012-05-14T00:00:00+02:00</updated>
+  <id>http://blog.session.it/2012/05/14/legacy-libraries-for-your-maven-build/</id>
+  <summary type="html">&lt;h1&gt;Legacy libraries&lt;/h1&gt;
+
+&lt;p&gt;Dealing with legacy code is always tricky, and adapting your tooling to leverage them is sometimes plain hard. Especially when you're building your projects with Maven and your code happens to depend on some ancient library which appear to be unknown to the Internet™, you probably have to figure out how to tell Maven where to find that damn library. This is also the problem when dealing with e.g. proprietary third party libraries which don't ship with a POM, therefore they don't mavenly exist.&lt;/p&gt;
+
+&lt;h1&gt;Local repositories FTW&lt;/h1&gt;
+
+&lt;p&gt;There are a number of possible solutions to the above mentioned problem, which ideally involve a shared, remote artifact repository where to deploy the JAR file that causes you headaches. Recently, I found myself in the need of creating (yet another) Maven build around some &lt;a href=&quot;http://www.alfresco.com&quot;&gt;Alfresco&lt;/a&gt;, to enable &lt;a href=&quot;http://skuro.tk/lambdalf/&quot;&gt;Lambdalf&lt;/a&gt; to build its Clojure sources. The rocky road to Maven for Alfresco is still long, and as a result you find yourself dealing with some iffy libraries when coding against Alfresco. Some examples, just opening up the WAR files:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;truezip.jar&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mybaties-3.0.4-patched.jar&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acegi-security-0.8.2_patched.jar&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;One solution I found that doesn't require setting up your publicly available &lt;a href=&quot;http://www.sonatype.org/nexus/&quot;&gt;Nexus&lt;/a&gt; repository, nor using someone else's &lt;a href=&quot;http://www.jfrog.com/products.php&quot;&gt;Artifactory&lt;/a&gt;, is to provide the problematic JARs in a maven repository as part of your sources. Suppose you have a mysterious &lt;code&gt;fluff.jar&lt;/code&gt; library you need to include in your classpath, here's how it works:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;place the JAR file in &lt;code&gt;src/main/lib/fluff/fluff/unknown/fluff-unknown.jar&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;setup the dependency in your POM:&lt;/p&gt;
+
+&lt;p&gt;  &lt;dependencies&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+  &amp;lt;groupId&amp;gt;fluff&amp;lt;/groupId&amp;gt;
+  &amp;lt;artifactId&amp;gt;fluff&amp;lt;/artifactId&amp;gt;
+  &amp;lt;version&amp;gt;unknown&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  &lt;/dependencies&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;still in your POM, enable the local repository:&lt;/p&gt;
+
+&lt;p&gt;  &lt;repositories&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;repository&amp;gt;
+  &amp;lt;id&amp;gt;legacy-artifacts&amp;lt;/id&amp;gt;
+  &amp;lt;url&amp;gt;file://${project.basedir}/src/main/lib&amp;lt;/url&amp;gt;
+&amp;lt;/repository&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  &lt;/repositories&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Voil&amp;aacute;. You just created a local, portable repository in your sources and instructed Maven to look there for artifacts.&lt;/p&gt;
+
+&lt;h1&gt;License&lt;/h1&gt;
+
+&lt;p&gt;A couple of golden rules for all the cowboy programmers out there:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;always, always, &lt;strong&gt;always check if the license allows you to redistribute the libraries&lt;/strong&gt; you're going to include in your project&lt;/li&gt;
+&lt;li&gt;never, never, &lt;strong&gt;never distribute a piece of software you're not entitled to give away&lt;/strong&gt; and &lt;strong&gt;attach the license of all third party libraries&lt;/strong&gt; along with your project&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;That said, I'll leave you to your local Maven repositories. Happy building!&lt;/p&gt;
+</summary>
+</entry>
+
+
+
+</feed>
