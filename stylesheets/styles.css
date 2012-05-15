@@ -39,7 +39,7 @@ header, section, footer {
 }
 
 a {
-  color: #069;
+  color: #FF9900;
   text-decoration: none;
 }
 
@@ -49,7 +49,7 @@ p {
 }
 
 strong {
-  color: #222;
+  color: #92CD00;
   font-weight: 700;
 }
 
@@ -61,12 +61,12 @@ header {
   -khtml-border-radius: 8px 8px 0 0;
   border-radius: 8px 8px 0 0;
   background: #C6C6C6;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #cecece), color-stop(100%, #e0e0e0));
-  background: -webkit-linear-gradient(#cecece, #e0e0e0);
-  background: -moz-linear-gradient(#cecece, #e0e0e0);
-  background: -o-linear-gradient(#cecece, #e0e0e0);
-  background: -ms-linear-gradient(#cecece, #e0e0e0);
-  background: linear-gradient(#cecece, #e0e0e0);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #036), color-stop(100%, #369));
+  background: -webkit-linear-gradient(#036, #369);
+  background: -moz-linear-gradient(#036, #369);
+  background: -o-linear-gradient(#036, #369);
+  background: -ms-linear-gradient(#036, #369);
+  background: linear-gradient(#036, #369);
   border-bottom: 1px solid #e1e1e1;
   position: relative;
   padding: 15px 20px 0px 20px;
@@ -76,7 +76,7 @@ header h1 {
   padding: 0;
   font-size: 24px;
   line-height: 1.2;
-  color: #069;
+  color: #FF9900;
   text-shadow: rgba(255, 255, 255, 0.9) 0 1px 0;
 }
 header.without-description h1 {
@@ -197,7 +197,7 @@ section {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #222;
+  color: #92CD00;
   padding: 0;
   margin: 0 0 20px;
   line-height: 1.2;
@@ -229,7 +229,7 @@ blockquote {
   font-style: italic;
   background: #ccc;
   background: rgba(0, 0, 0, 0.06);
-  color: #222;
+  color: #92CD00;
 }
 
 img {
@@ -269,12 +269,12 @@ th, td {
 }
 
 dt {
-  color: #222;
+  color: #92CD00;
   font-weight: 700;
 }
 
 th {
-  color: #222;
+  color: #92CD00;
 }
 
 small {
