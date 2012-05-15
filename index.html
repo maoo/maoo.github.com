@@ -39,13 +39,15 @@
 
 <!-- copied from post_header include -->
 <h1>
-  <a href="/2012/05/14/legacy-libraries-for-your-maven-build">Legacy libraries for your maven build</a>
+  <a href="/2012/05/15/mmt-maven-plugin-0.1-SNAPSHOT-released">mmt-maven-plugin 0.1-SNAPSHOT released</a>
 </h1>
 <blockquote class="date-wrapper">
   <h5 class="date">
-    May 14, 2012
+    May 15, 2012
     
      - tagged
+    
+    <a href="/category/alfresco">#alfresco</a>
     
     <a href="/category/alm">#alm</a>
     
@@ -57,66 +59,103 @@
 <!-- end copy -->
 
   
-  <img src="/img/post/legacy.png" class="primary" />
+  <img src="/img/post/mavenalfresco.jpg" class="primary" />
   
-  <h1>Legacy libraries</h1>
+  <h1>MMT Maven Plugin</h1>
 
-<p>Dealing with legacy code is always tricky, and adapting your tooling to leverage them is sometimes plain hard. Especially when you're building your projects with Maven and your code happens to depend on some ancient library which appear to be unknown to the Internet™, you probably have to figure out how to tell Maven where to find that damn library. This is also the problem when dealing with e.g. proprietary third party libraries which don't ship with a POM, therefore they don't mavenly exist.</p>
+<p>After a month (or so) of experiments, it was time to deploy <a href="http://maven.alfresco.com/nexus/content/repositories/snapshots/org/alfresco/maven/plugin/mmt-maven-plugin/0.1-SNAPSHOT/">the first snapshot</a> of a new version of the <a href="http://maven.alfresco.com/nexus/content/repositories/alfresco-docs/maven-alfresco-lifecycle/plugins/maven-amp-plugin/components.html">maven-amp-plugin</a>, the <strong>mmt-maven-plugin</strong>. Since there is no official documentation yet, I just wanted to share with you an initial draft of the usage and goal configurations; you can start using it already and test it in your builds that are currently based on maven-amp-plugin. The plugin is currently committed as a branch of the <a href="http://code.google.com/p/maven-alfresco-archetypes">Maven Alfresco Archetypes Google Code project</a>, although it could be soon moved to an Alfresco internal code repository.</p>
 
-<h1>Local repositories FTW</h1>
+<p>In a nutshell, the MMT plugin covers all features of his predecessor, the AMP Plugin; the difference is in the code; the AMP Plugin was a rewriting of the maven-war-plugin, replacing ".war" with ".amp" and disabling some code here and there; since it was working fine no effort was ever made to improve it; on the contrary, the MMT Plugin uses the Alfresco Repository internals to perform the AMP operations, drastically lowering complexity and amount of code to maintain.</p>
 
-<p>There are a number of possible solutions to the above mentioned problem, which ideally involve a shared, remote artifact repository where to deploy the JAR file that causes you headaches. Recently, I found myself in the need of creating (yet another) Maven build around some <a href="http://www.alfresco.com">Alfresco</a>, to enable <a href="http://skuro.tk/lambdalf/">Lambdalf</a> to build its Clojure sources. The rocky road to Maven for Alfresco is still long, and as a result you find yourself dealing with some iffy libraries when coding against Alfresco. Some examples, just opening up the WAR files:</p>
+<h1>MMT Goals</h1>
+
+<p>The mmt-maven-plugin provides the following features:</p>
 
 <ul>
-<li><code>truezip.jar</code></li>
-<li><code>mybaties-3.0.4-patched.jar</code></li>
-<li><code>acegi-security-0.8.2_patched.jar</code></li>
+<li><strong>Packages an AMP</strong> starting from a simple (and configurable) Maven project folder structure</li>
+<li>Performs <strong>AMP to WAR overlay</strong> by using the Alfresco Repository ModuleManagementTool and emulating the same process during Alfresco boostrap</li>
 </ul>
 
 
-<p>One solution I found that doesn't require setting up your publicly available <a href="http://www.sonatype.org/nexus/">Nexus</a> repository, nor using someone else's <a href="http://www.jfrog.com/products.php">Artifactory</a>, is to provide the problematic JARs in a maven repository as part of your sources. Suppose you have a mysterious <code>fluff.jar</code> library you need to include in your classpath, here's how it works:</p>
+<h1>Packaging an AMP</h1>
 
 <ul>
-<li><p>place the JAR file in <code>src/main/lib/fluff/fluff/unknown/fluff-unknown.jar</code></p></li>
-<li><p>setup the dependency in your POM:</p>
+<li>Define your POM as <packaging>amp</packaging></li>
+<li><p>Specify a module.properties file in the project's root folder, containing the properties</p>
 
-<p>  <dependencies></p>
+<p>  module.id=${project.artifactId}
+  module.title=${project.name}
+  module.description=${project.description}
+  module.version=${project.version}</p></li>
+</ul>
 
-<pre><code>&lt;dependency&gt;
-  &lt;groupId&gt;fluff&lt;/groupId&gt;
-  &lt;artifactId&gt;fluff&lt;/artifactId&gt;
-  &lt;version&gt;unknown&lt;/version&gt;
-&lt;/dependency&gt;
+
+<p>As you can see, the file is filtered with Maven project placeholders</p>
+
+<p>Declare the mmt-maven-plugin in your POM build section, as follows</p>
+
+<pre><code>&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.alfresco.maven.plugin&lt;/groupId&gt;
+      &lt;artifactId&gt;mmt-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;
 </code></pre>
 
-<p>  </dependencies></p></li>
-<li><p>still in your POM, enable the local repository:</p>
+<p>you can optionally define the following configurations to override your Maven project's structure (although not recommended)</p>
 
-<p>  <repositories></p>
-
-<pre><code>&lt;repository&gt;
-  &lt;id&gt;legacy-artifacts&lt;/id&gt;
-  &lt;url&gt;file://${project.basedir}/src/main/lib&lt;/url&gt;
-&lt;/repository&gt;
+<pre><code>&lt;configuration&gt;
+  &lt;classesDirectory&gt;${project.build.outputDirectory}&lt;/classesDirectory&gt;
+  &lt;webappDirectory&gt;src/main/webapp&lt;/webappDirectory&gt;
+  &lt;configDirectory&gt;src/main/webapp&lt;/configDirectory&gt;
+&lt;/configuration&gt;
 </code></pre>
 
-<p>  </repositories></p></li>
-</ul>
+<h1>AMP to WAR Overlay</h1>
 
+<p>To overlay an existing Alfresco WAR file, you'll need the following elements
+* Add a dependency to the Alfresco WAR webapp</p>
 
-<p>Voil&aacute;. You just created a local, portable repository in your sources and instructed Maven to look there for artifacts.</p>
-
-<h1>License</h1>
-
-<p>A couple of golden rules for all the cowboy programmers out there:</p>
+<pre><code>&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.alfresco.enterprise&lt;/groupId&gt;
+    &lt;artifactId&gt;alfresco&lt;/artifactId&gt;
+    &lt;version&gt;4.0.1&lt;/version&gt;
+    &lt;type&gt;war&lt;/type&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
 
 <ul>
-<li>always, always, <strong>always check if the license allows you to redistribute the libraries</strong> you're going to include in your project</li>
-<li>never, never, <strong>never distribute a piece of software you're not entitled to give away</strong> and <strong>attach the license of all third party libraries</strong> along with your project</li>
+<li><p>Add the mmt-plugin configuration to run the install goal after the AMP have been packaged</p>
+
+<p>  <plugin></p>
+
+<pre><code>&lt;groupId&gt;org.alfresco.maven.plugin&lt;/groupId&gt;
+&lt;artifactId&gt;mmt-maven-plugin&lt;/artifactId&gt;
+&lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;
+&lt;executions&gt;
+  &lt;execution&gt;
+    &lt;id&gt;unpack-amps&lt;/id&gt;
+    &lt;phase&gt;package&lt;/phase&gt;
+    &lt;goals&gt;
+      &lt;goal&gt;install&lt;/goal&gt;
+    &lt;/goals&gt;
+    &lt;configuration&gt;
+      &lt;singleAmp&gt;${project.build.directory}/${project.build.finalName}.${project.packaging}&lt;/singleAmp&gt;
+    &lt;/configuration&gt;
+  &lt;/execution&gt;
+&lt;/executions&gt;
+</code></pre>
+
+<p>  </plugin></p></li>
 </ul>
 
 
-<p>That said, I'll leave you to your local Maven repositories. Happy building!</p>
+<p>Please be aware that this is still an experimental work; I hope to give you some updates about this effort by the end of this/next week; meantime, any comment/feedback is indeed more than welcome.</p>
 
   <!-- 
   <div id="disqus_thread"></div>
