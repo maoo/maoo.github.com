@@ -2,7 +2,7 @@
 title: mmt-maven-plugin 0.1-SNAPSHOT released
 layout: post
 primary_img: /img/post/alfresco-logo.png
-categories: [alfresco, alm, maven]
+categories: [alfresco, maven, amp, mmt]
 meta-description: mmt-maven-plugin 0.1-SNAPSHOT released
 ---
 
@@ -58,6 +58,7 @@ AMP to WAR Overlay
 =======
 
 To overlay an existing Alfresco WAR file, you'll need the following elements
+
 * Add a dependency to the Alfresco WAR webapp
 
     <dependencies>
