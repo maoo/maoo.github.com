@@ -28,8 +28,8 @@ comments: true
   <img src="{{ post.primary_img }}" class="primary" />
   {% endif %}
   {{ post.content }}
-  <!-- {% if page.comments %}
-  {% include disqus.html %}
-  {% endif %} -->
+  {% if page.comments %}
+    {% include disqus.html %}
+  {% endif %}
 
 </div>

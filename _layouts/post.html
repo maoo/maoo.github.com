@@ -8,8 +8,8 @@ comments: true
   <img src="{{ page.primary_img }}" class="primary" />
   {% endif %}
   {{ content }}
-  <!-- {% if page.comments %}
-  {% include disqus.html %}
-  {% endif %} -->
+  {% if page.comments %}
+    {% include disqus.html %}
+  {% endif %}
 
 </div>
