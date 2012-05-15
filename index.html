@@ -49,9 +49,11 @@
     
     <a href="/category/alfresco">#alfresco</a>
     
-    <a href="/category/alm">#alm</a>
-    
     <a href="/category/maven">#maven</a>
+    
+    <a href="/category/amp">#amp</a>
+    
+    <a href="/category/mmt">#mmt</a>
     
     
   </h5>
@@ -116,20 +118,22 @@
 
 <h1>AMP to WAR Overlay</h1>
 
-<p>To overlay an existing Alfresco WAR file, you'll need the following elements
-* Add a dependency to the Alfresco WAR webapp</p>
-
-<pre><code>&lt;dependencies&gt;
-  &lt;dependency&gt;
-    &lt;groupId&gt;org.alfresco.enterprise&lt;/groupId&gt;
-    &lt;artifactId&gt;alfresco&lt;/artifactId&gt;
-    &lt;version&gt;4.0.1&lt;/version&gt;
-    &lt;type&gt;war&lt;/type&gt;
-  &lt;/dependency&gt;
-&lt;/dependencies&gt;
-</code></pre>
+<p>To overlay an existing Alfresco WAR file, you'll need the following elements</p>
 
 <ul>
+<li><p>Add a dependency to the Alfresco WAR webapp</p>
+
+<p>  <dependencies></p>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.alfresco.enterprise&lt;/groupId&gt;
+  &lt;artifactId&gt;alfresco&lt;/artifactId&gt;
+  &lt;version&gt;4.0.1&lt;/version&gt;
+  &lt;type&gt;war&lt;/type&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>  </dependencies></p></li>
 <li><p>Add the mmt-plugin configuration to run the install goal after the AMP have been packaged</p>
 
 <p>  <plugin></p>
@@ -185,7 +189,7 @@
     </div>
     <footer>
       <p><a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license"><img src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" style="border-width:0;margin-bottom:10px" alt="Creative Commons License" /></a> licensed under a Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">license</a>
-      <p><span rel="dct:type" property="dct:title" href="http://purl.org/dc/dcmitype/Text">maoo! blog</span> by <a rel="cc:attributionURL" property="cc:attributionName" href="http://session.it">Maurizio Pillitu</a></p>
+      <p><span rel="dct:type" property="dct:title" href="http://purl.org/dc/dcmitype/Text">Word of maoo blog</span> by <a rel="cc:attributionURL" property="cc:attributionName" href="http://session.it">Maurizio Pillitu</a></p>
     </footer>
 
     <script type="text/javascript">
