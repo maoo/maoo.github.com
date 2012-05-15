@@ -9,12 +9,12 @@ footer img {
 
 ribbon {
   background: #C6C6C6;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #036), color-stop(100%, #369));
-  background: -webkit-linear-gradient(#036, #369);
-  background: -moz-linear-gradient(#036, #369);
-  background: -o-linear-gradient(#036, #369);
-  background: -ms-linear-gradient(#036, #369);
-  background: linear-gradient(#036, #369);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #cecece), color-stop(100%, #e0e0e0));
+  background: -webkit-linear-gradient(#cecece, #e0e0e0);
+  background: -moz-linear-gradient(#cecece, #e0e0e0);
+  background: -o-linear-gradient(#cecece, #e0e0e0);
+  background: -ms-linear-gradient(#cecece, #e0e0e0);
+  background: linear-gradient(#cecece, #e0e0e0);
   border-bottom: 1px solid #e1e1e1;
   position: relative;
   margin: 0px 0px 20px -23px;
