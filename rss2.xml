@@ -3,7 +3,7 @@
     <title type="text" xml:lang="en">Word of MAOO</title>
     <link type="application/atom+xml" href="http://blog.session.it/rss2/" rel="self"/>
     <link type="text" href="http://blog.session.it" rel="alternate"/>
-    <updated>2012-05-15T11:16:19+02:00</updated>
+    <updated>2012-05-15T21:24:55+02:00</updated>
     <id>http://blog.session.it</id>
     <author>
         <name>Maurizio Pillitu</name>
@@ -11,70 +11,110 @@
     <rights>Copyright (c) 2010-2011 Maurizio Pillitu</rights>
     
 <entry>
-  <title>Legacy libraries for your maven build</title>
-  <link href="http://blog.session.it/2012/05/14/legacy-libraries-for-your-maven-build/"/>
-  <updated>2012-05-14T00:00:00+02:00</updated>
-  <id>http://blog.session.it/2012/05/14/legacy-libraries-for-your-maven-build/</id>
-  <summary type="html">&lt;h1&gt;Legacy libraries&lt;/h1&gt;
+  <title>mmt-maven-plugin 0.1-SNAPSHOT released</title>
+  <link href="http://blog.session.it/2012/05/15/mmt-maven-plugin-0.1-SNAPSHOT-released/"/>
+  <updated>2012-05-15T00:00:00+02:00</updated>
+  <id>http://blog.session.it/2012/05/15/mmt-maven-plugin-0.1-SNAPSHOT-released/</id>
+  <summary type="html">&lt;h1&gt;MMT Maven Plugin&lt;/h1&gt;
 
-&lt;p&gt;Dealing with legacy code is always tricky, and adapting your tooling to leverage them is sometimes plain hard. Especially when you're building your projects with Maven and your code happens to depend on some ancient library which appear to be unknown to the Internet™, you probably have to figure out how to tell Maven where to find that damn library. This is also the problem when dealing with e.g. proprietary third party libraries which don't ship with a POM, therefore they don't mavenly exist.&lt;/p&gt;
+&lt;p&gt;After a month (or so) of experiments, it was time to deploy &lt;a href=&quot;http://maven.alfresco.com/nexus/content/repositories/snapshots/org/alfresco/maven/plugin/mmt-maven-plugin/0.1-SNAPSHOT/&quot;&gt;the first snapshot&lt;/a&gt; of a new version of the &lt;a href=&quot;http://maven.alfresco.com/nexus/content/repositories/alfresco-docs/maven-alfresco-lifecycle/plugins/maven-amp-plugin/components.html&quot;&gt;maven-amp-plugin&lt;/a&gt;, the &lt;strong&gt;mmt-maven-plugin&lt;/strong&gt;. Since there is no official documentation yet, I just wanted to share with you an initial draft of the usage and goal configurations; you can start using it already and test it in your builds that are currently based on maven-amp-plugin. The plugin is currently committed as a branch of the &lt;a href=&quot;http://code.google.com/p/maven-alfresco-archetypes&quot;&gt;Maven Alfresco Archetypes Google Code project&lt;/a&gt;, although it could be soon moved to an Alfresco internal code repository.&lt;/p&gt;
 
-&lt;h1&gt;Local repositories FTW&lt;/h1&gt;
+&lt;p&gt;In a nutshell, the MMT plugin covers all features of his predecessor, the AMP Plugin; the difference is in the code; the AMP Plugin was a rewriting of the maven-war-plugin, replacing &quot;.war&quot; with &quot;.amp&quot; and disabling some code here and there; since it was working fine no effort was ever made to improve it; on the contrary, the MMT Plugin uses the Alfresco Repository internals to perform the AMP operations, drastically lowering complexity and amount of code to maintain.&lt;/p&gt;
 
-&lt;p&gt;There are a number of possible solutions to the above mentioned problem, which ideally involve a shared, remote artifact repository where to deploy the JAR file that causes you headaches. Recently, I found myself in the need of creating (yet another) Maven build around some &lt;a href=&quot;http://www.alfresco.com&quot;&gt;Alfresco&lt;/a&gt;, to enable &lt;a href=&quot;http://skuro.tk/lambdalf/&quot;&gt;Lambdalf&lt;/a&gt; to build its Clojure sources. The rocky road to Maven for Alfresco is still long, and as a result you find yourself dealing with some iffy libraries when coding against Alfresco. Some examples, just opening up the WAR files:&lt;/p&gt;
+&lt;h1&gt;MMT Goals&lt;/h1&gt;
+
+&lt;p&gt;The mmt-maven-plugin provides the following features:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;truezip.jar&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;mybaties-3.0.4-patched.jar&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;acegi-security-0.8.2_patched.jar&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Packages an AMP&lt;/strong&gt; starting from a simple (and configurable) Maven project folder structure&lt;/li&gt;
+&lt;li&gt;Performs &lt;strong&gt;AMP to WAR overlay&lt;/strong&gt; by using the Alfresco Repository ModuleManagementTool and emulating the same process during Alfresco boostrap&lt;/li&gt;
 &lt;/ul&gt;
 
 
-&lt;p&gt;One solution I found that doesn't require setting up your publicly available &lt;a href=&quot;http://www.sonatype.org/nexus/&quot;&gt;Nexus&lt;/a&gt; repository, nor using someone else's &lt;a href=&quot;http://www.jfrog.com/products.php&quot;&gt;Artifactory&lt;/a&gt;, is to provide the problematic JARs in a maven repository as part of your sources. Suppose you have a mysterious &lt;code&gt;fluff.jar&lt;/code&gt; library you need to include in your classpath, here's how it works:&lt;/p&gt;
+&lt;h1&gt;Packaging an AMP&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;place the JAR file in &lt;code&gt;src/main/lib/fluff/fluff/unknown/fluff-unknown.jar&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;setup the dependency in your POM:&lt;/p&gt;
+&lt;li&gt;Define your POM as &lt;packaging&gt;amp&lt;/packaging&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Specify a module.properties file in the project's root folder, containing the properties&lt;/p&gt;
+
+&lt;p&gt;  module.id=${project.artifactId}
+  module.title=${project.name}
+  module.description=${project.description}
+  module.version=${project.version}&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;As you can see, the file is filtered with Maven project placeholders&lt;/p&gt;
+
+&lt;p&gt;Declare the mmt-maven-plugin in your POM build section, as follows&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;build&amp;gt;
+  &amp;lt;plugins&amp;gt;
+    &amp;lt;plugin&amp;gt;
+      &amp;lt;groupId&amp;gt;org.alfresco.maven.plugin&amp;lt;/groupId&amp;gt;
+      &amp;lt;artifactId&amp;gt;mmt-maven-plugin&amp;lt;/artifactId&amp;gt;
+      &amp;lt;version&amp;gt;0.1-SNAPSHOT&amp;lt;/version&amp;gt;
+    &amp;lt;/plugin&amp;gt;
+  &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;you can optionally define the following configurations to override your Maven project's structure (although not recommended)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;configuration&amp;gt;
+  &amp;lt;classesDirectory&amp;gt;${project.build.outputDirectory}&amp;lt;/classesDirectory&amp;gt;
+  &amp;lt;webappDirectory&amp;gt;src/main/webapp&amp;lt;/webappDirectory&amp;gt;
+  &amp;lt;configDirectory&amp;gt;src/main/webapp&amp;lt;/configDirectory&amp;gt;
+&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;AMP to WAR Overlay&lt;/h1&gt;
+
+&lt;p&gt;To overlay an existing Alfresco WAR file, you'll need the following elements&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Add a dependency to the Alfresco WAR webapp&lt;/p&gt;
 
 &lt;p&gt;  &lt;dependencies&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
-  &amp;lt;groupId&amp;gt;fluff&amp;lt;/groupId&amp;gt;
-  &amp;lt;artifactId&amp;gt;fluff&amp;lt;/artifactId&amp;gt;
-  &amp;lt;version&amp;gt;unknown&amp;lt;/version&amp;gt;
+  &amp;lt;groupId&amp;gt;org.alfresco.enterprise&amp;lt;/groupId&amp;gt;
+  &amp;lt;artifactId&amp;gt;alfresco&amp;lt;/artifactId&amp;gt;
+  &amp;lt;version&amp;gt;4.0.1&amp;lt;/version&amp;gt;
+  &amp;lt;type&amp;gt;war&amp;lt;/type&amp;gt;
 &amp;lt;/dependency&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;  &lt;/dependencies&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;still in your POM, enable the local repository:&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Add the mmt-plugin configuration to run the install goal after the AMP have been packaged&lt;/p&gt;
 
-&lt;p&gt;  &lt;repositories&gt;&lt;/p&gt;
+&lt;p&gt;  &lt;plugin&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;repository&amp;gt;
-  &amp;lt;id&amp;gt;legacy-artifacts&amp;lt;/id&amp;gt;
-  &amp;lt;url&amp;gt;file://${project.basedir}/src/main/lib&amp;lt;/url&amp;gt;
-&amp;lt;/repository&amp;gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;groupId&amp;gt;org.alfresco.maven.plugin&amp;lt;/groupId&amp;gt;
+&amp;lt;artifactId&amp;gt;mmt-maven-plugin&amp;lt;/artifactId&amp;gt;
+&amp;lt;version&amp;gt;0.1-SNAPSHOT&amp;lt;/version&amp;gt;
+&amp;lt;executions&amp;gt;
+  &amp;lt;execution&amp;gt;
+    &amp;lt;id&amp;gt;unpack-amps&amp;lt;/id&amp;gt;
+    &amp;lt;phase&amp;gt;package&amp;lt;/phase&amp;gt;
+    &amp;lt;goals&amp;gt;
+      &amp;lt;goal&amp;gt;install&amp;lt;/goal&amp;gt;
+    &amp;lt;/goals&amp;gt;
+    &amp;lt;configuration&amp;gt;
+      &amp;lt;singleAmp&amp;gt;${project.build.directory}/${project.build.finalName}.${project.packaging}&amp;lt;/singleAmp&amp;gt;
+    &amp;lt;/configuration&amp;gt;
+  &amp;lt;/execution&amp;gt;
+&amp;lt;/executions&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;  &lt;/repositories&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;p&gt;  &lt;/plugin&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
-&lt;p&gt;Voil&amp;aacute;. You just created a local, portable repository in your sources and instructed Maven to look there for artifacts.&lt;/p&gt;
-
-&lt;h1&gt;License&lt;/h1&gt;
-
-&lt;p&gt;A couple of golden rules for all the cowboy programmers out there:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;always, always, &lt;strong&gt;always check if the license allows you to redistribute the libraries&lt;/strong&gt; you're going to include in your project&lt;/li&gt;
-&lt;li&gt;never, never, &lt;strong&gt;never distribute a piece of software you're not entitled to give away&lt;/strong&gt; and &lt;strong&gt;attach the license of all third party libraries&lt;/strong&gt; along with your project&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;That said, I'll leave you to your local Maven repositories. Happy building!&lt;/p&gt;
+&lt;p&gt;Please be aware that this is still an experimental work; I hope to give you some updates about this effort by the end of this/next week; meantime, any comment/feedback is indeed more than welcome.&lt;/p&gt;
 </summary>
 </entry>
+
 
 
 
