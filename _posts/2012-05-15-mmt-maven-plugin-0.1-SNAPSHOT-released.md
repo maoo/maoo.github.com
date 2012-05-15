@@ -1,7 +1,7 @@
 ---
 title: mmt-maven-plugin 0.1-SNAPSHOT released
 layout: post
-primary_img: /img/post/mavenalfresco.jpg
+primary_img: /img/post/alfresco-logo.jpg
 categories: [alfresco, alm, maven]
 meta-description: mmt-maven-plugin 0.1-SNAPSHOT released
 ---
