@@ -24,13 +24,20 @@ The mmt-maven-plugin provides the following features:
 Packaging an AMP
 =======
 
-* Define your POM as <packaging>amp</packaging>
+* Define your POM as
+
+    <code>
+	  <packaging>amp</packaging>
+	</code>
+
 * Specify a module.properties file in the project's root folder, containing the properties
 
+    <pre>
     module.id=${project.artifactId}
     module.title=${project.name}
     module.description=${project.description}
     module.version=${project.version}
+    </pre>
 
 As you can see, the file is filtered with Maven project placeholders
 
