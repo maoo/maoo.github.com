@@ -77,13 +77,22 @@
 <h1>Packaging an AMP</h1>
 
 <ul>
-<li>Define your POM as <packaging>amp</packaging></li>
+<li><p>Define your POM as</p>
+
+<p>  <code></p>
+
+<pre><code>&lt;packaging&gt;amp&lt;/packaging&gt;
+</code></pre>
+
+<p>  </code></p></li>
 <li><p>Specify a module.properties file in the project's root folder, containing the properties</p>
 
-<p>  module.id=${project.artifactId}
+<p>  <pre>
+  module.id=${project.artifactId}
   module.title=${project.name}
   module.description=${project.description}
-  module.version=${project.version}</p></li>
+  module.version=${project.version}
+  </pre></p></li>
 </ul>
 
 

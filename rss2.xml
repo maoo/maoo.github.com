@@ -3,7 +3,7 @@
     <title type="text" xml:lang="en">Word of MAOO</title>
     <link type="application/atom+xml" href="http://blog.session.it/rss2/" rel="self"/>
     <link type="text" href="http://blog.session.it" rel="alternate"/>
-    <updated>2012-06-19T20:42:29+02:00</updated>
+    <updated>2012-06-20T19:15:17+02:00</updated>
     <id>http://blog.session.it</id>
     <author>
         <name>Maurizio Pillitu</name>
@@ -34,13 +34,22 @@
 &lt;h1&gt;Packaging an AMP&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Define your POM as &lt;packaging&gt;amp&lt;/packaging&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Define your POM as&lt;/p&gt;
+
+&lt;p&gt;  &lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;packaging&amp;gt;amp&amp;lt;/packaging&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  &lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Specify a module.properties file in the project's root folder, containing the properties&lt;/p&gt;
 
-&lt;p&gt;  module.id=${project.artifactId}
+&lt;p&gt;  &lt;pre&gt;
+  module.id=${project.artifactId}
   module.title=${project.name}
   module.description=${project.description}
-  module.version=${project.version}&lt;/p&gt;&lt;/li&gt;
+  module.version=${project.version}
+  &lt;/pre&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
