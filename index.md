@@ -1,6 +1,6 @@
 ---
 layout: default
-comments: true
+comments: false
 ---
 
 {% assign post = site.posts.first %}
@@ -28,8 +28,5 @@ comments: true
   <img src="{{ post.primary_img }}" class="primary" />
   {% endif %}
   {{ post.content }}
-  {% if page.comments %}
-    {% include disqus.html %}
-  {% endif %}
 
 </div>
