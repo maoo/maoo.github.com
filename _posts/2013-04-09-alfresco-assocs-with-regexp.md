@@ -16,6 +16,6 @@ In the first code block I am <b><i>fetching all target associations from a node<
 
 The second code block does exactly the same, but avoiding a post-processing iteration and delivering a nice and clean 1-liner solution.
 
-The last block defines another Regular Expression that matches all QNames of a given namespace. You can notice that the match is done upon the fully qualified QName, using the namespace URL, not it's prefix.
+The last block defines another Regular Expression that matches all QNames of a given namespace. You can notice that the match is done upon the fully qualified QName, using the namespace URL, not its prefix.
 
 <script src="https://gist.github.com/maoo/5345612.js"></script>
