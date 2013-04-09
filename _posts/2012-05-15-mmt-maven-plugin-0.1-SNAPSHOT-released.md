@@ -9,6 +9,11 @@ meta-description: mmt-maven-plugin 0.1-SNAPSHOT released
 MMT Maven Plugin
 ================
 
+<b>UPDATE</b><br/>
+The mmt-maven-plugin have been deprecated in favour of the alfresco-maven-plugin and the [Maven Alfresco SDK](https://artifacts.alfresco.com/nexus/content/repositories/alfresco-docs/alfresco-lifecycle-aggregator/latest/index.html)
+
+<hr/>
+
 After a month (or so) of experiments, it was time to deploy [the first snapshot](http://maven.alfresco.com/nexus/content/repositories/snapshots/org/alfresco/maven/plugin/mmt-maven-plugin/0.1-SNAPSHOT/) of a new version of the [maven-amp-plugin](http://maven.alfresco.com/nexus/content/repositories/alfresco-docs/maven-alfresco-lifecycle/plugins/maven-amp-plugin/components.html), the **mmt-maven-plugin**. Since there is no official documentation yet, I just wanted to share with you an initial draft of the usage and goal configurations; you can start using it already and test it in your builds that are currently based on maven-amp-plugin. The plugin is currently committed as a branch of the [Maven Alfresco Archetypes Google Code project](http://code.google.com/p/maven-alfresco-archetypes), although it could be soon moved to an Alfresco internal code repository.
 
 In a nutshell, the MMT plugin covers all features of his predecessor, the AMP Plugin; the difference is in the code; the AMP Plugin was a rewriting of the maven-war-plugin, replacing ".war" with ".amp" and disabling some code here and there; since it was working fine no effort was ever made to improve it; on the contrary, the MMT Plugin uses the Alfresco Repository internals to perform the AMP operations, drastically lowering complexity and amount of code to maintain.
