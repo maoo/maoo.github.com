@@ -1,14 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
-/*html {
-  background: #036;
-  background: #036 -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #036), color-stop(100%, #369)) fixed;
-  background: #036 -webkit-linear-gradient(#036, #369) fixed;
-  background: #036 -moz-linear-gradient(#036, #369) fixed;
-  background: #036 -o-linear-gradient(#036, #369) fixed;
-  background: #036 -ms-linear-gradient(#036, #369) fixed;
-  background: #036 linear-gradient(#036, #369) fixed;
-}
-*/
+
 html { 
     background: url(/img/bg.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
