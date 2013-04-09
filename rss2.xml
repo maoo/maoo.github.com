@@ -1,15 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title type="text" xml:lang="en">Word of MAOO</title>
-    <link type="application/atom+xml" href="http://blog.session.it/rss2/" rel="self"/>
-    <link type="text" href="http://blog.session.it" rel="alternate"/>
-    <updated>2013-04-09T14:41:58+01:00</updated>
-    <id>http://blog.session.it</id>
+    <link type="application/atom+xml" href="http://blog.session.it/rss2.xml" rel="self"/>
+    <link type="text/plain" href="http://blog.session.it" rel="alternate"/>
+    <updated>2013-04-09T20:45:07+01:00</updated>
+    <id>http://blog.session.it/</id>
     <author>
         <name>Maurizio Pillitu</name>
     </author>
     <rights>Copyright (c) 2010-2011 Maurizio Pillitu</rights>
     
+<entry>
+  <title>Using Maven Alfresco SDK with the Enterprise edition</title>
+  <link href="http://blog.session.it/2013/04/10/maven-alfresco-enterprise/"/>
+  <updated>2013-04-10T00:00:00+01:00</updated>
+  <id>http://blog.session.it/2013/04/10/maven-alfresco-enterprise/</id>
+  <summary type="html">&lt;p&gt;If you're an Alfresco aficionado, you should already know that last year we've released a new &lt;a href=&quot;https://artifacts.alfresco.com/nexus/content/repositories/alfresco-docs/alfresco-lifecycle-aggregator/latest/index.html&quot;&gt;Alfresco SDK&lt;/a&gt; to make developer's life easier and to provide a solid, consistent and reliable way to manage your Alfresco (customisation) projects.&lt;/p&gt;
+
+&lt;p&gt;If it's the first time you hear about this, start with &lt;a href=&quot;http://mindthegab.com/2012/11/05/maven-alfresco-sdk-1-0-is-finally-out-and-ready-for-you-to-enjoy/&quot;&gt;Gab's post&lt;/a&gt; to read about the project's history and all pointers.&lt;/p&gt;
+
+&lt;p&gt;In both cases, you may have missed the 1.0.1 release, whose biggest improvement is to allow the SDK to work with Alfresco Enterprise 4.1.2 (and later) versions. This post guides you through all the steps to build an Alfresco Enterprise customisation using the Maven SDK.&lt;/p&gt;
+
+&lt;h1&gt;Prerequisites&lt;/h1&gt;
+
+&lt;p&gt;In order to get at the bottom of this tutorial you need credentials (username/password) to access the &lt;a href=&quot;https://artifacts.alfresco.com/nexus&quot;&gt;Alfresco Nexus instance&lt;/a&gt;), where the Enterprise artifacts are hosted; using this link you will be able to search for dependencies, check which versions are available and get the Maven coordinates of the artifacts you need.&lt;/p&gt;
+
+&lt;p&gt;If you are an Alfresco customer and you want to request your credentials, you can follow this &lt;a href=&quot;https://support.alfresco.com/ics/support/default.asp?deptID=15026&amp;amp;task=knowledge&amp;amp;questionID=91&quot;&gt;internal article&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;And Maven 3.0.x of course.
+That's it. No database &amp;amp; no tomcat needed. True story.&lt;/p&gt;
+
+&lt;h1&gt;Generate a Maven Project using the archetypes&lt;/h1&gt;
+
+&lt;p&gt;First step is to generate a Maven project; for simplicity we will use the &lt;a href=&quot;https://artifacts.alfresco.com/nexus/content/repositories/alfresco-docs/alfresco-lifecycle-aggregator/latest/archetypes/alfresco-amp-archetype/index.html&quot;&gt;alfresco-amp-archetype&lt;/a&gt;, although the very same steps apply for the all-in-one archetype.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn archetype:generate -DarchetypeCatalog=https://artifacts.alfresco.com/nexus/content/groups/public/archetype-catalog.xml -Dfilter=org.alfresco.maven.archetype
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following command will ask you to define the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;archetype&lt;/b&gt; - at the time of writing there are only 2 types of archetypes available: &lt;strong&gt;alfresco-allinone-archetype&lt;/strong&gt; (1) and &lt;strong&gt;alfresco-amp-archetype&lt;/strong&gt; (2). Let's go with &lt;b&gt;&lt;i&gt;1&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;groupId&lt;/b&gt; - no special rules apply, you can choose any string you want. In my case I choose &lt;b&gt;&lt;i&gt;it.session.alfresco&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;artifactId&lt;/b&gt; - as above, with the difference that the artifactId will also be the name of the folder that Maven will create as a result of the current command execution. I choose &lt;b&gt;&lt;i&gt;session-repo-amp&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;version&lt;/b&gt; - the SDK version to use. It is very important that you choose option #2 (&lt;b&gt;&lt;i&gt;1.0.1&lt;/i&gt;&lt;/b&gt;) or above, otherwise the generated project will fail during the first build.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;You will be asked to confirm all properties; type &lt;b&gt;&lt;i&gt;Y&lt;/i&gt;&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;BUILD SUCCESSFUL&lt;/b&gt;? Let's move on!&lt;/p&gt;
+
+&lt;h1&gt;Building the Maven Project using the community edition&lt;/h1&gt;
+
+&lt;p&gt;Before testing the build with the Enterprise edition, it is strongly advised to try building with the community first.&lt;/p&gt;
+
+&lt;p&gt;The downside of this approach is that you will have to download all Alfresco Community dependencies first and - after that - all Alfresco Enterprise ones. If you have a slow connection, you may consider to skip this step and move to the next one; however, if you're having a hard time with the SDK (Maven sometimes can be a bitch) I advise you to test this approach.&lt;/p&gt;
+
+&lt;p&gt;It is as simple as&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd session-repo-amp &amp;amp;&amp;amp; mvn integration-test -Pamp-to-run
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(Maven will download roughly 300Mb during the first build; this is probably the best time to take a break)&lt;/p&gt;
+
+&lt;p&gt;Your command-line shell should end up with&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;INFO::Started SelectChannelConnector@0.0.0.0:8080
+[INFO] Started Jetty Server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Point your browser to &lt;strong&gt;http://localhost:8080/session-repo-amp&lt;/strong&gt; and try to login using admin/admin; if everything works as expected you can move to the next section.&lt;/p&gt;
+
+&lt;h1&gt;Configure access to private repositories&lt;/h1&gt;
+
+&lt;p&gt;Open your &lt;strong&gt;~/.m2/settings.xml&lt;/strong&gt; (or create one if it does not exist) and define the following &lt;strong&gt;&lt;server&gt;&lt;/strong&gt; item&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;settings&amp;gt;
+  ...
+  &amp;lt;servers&amp;gt;
+    ... 
+    &amp;lt;server&amp;gt;
+      &amp;lt;id&amp;gt;alfresco-private-repository&amp;lt;/id&amp;gt;
+      &amp;lt;username&amp;gt;your_usernmae&amp;lt;/username&amp;gt;
+      &amp;lt;password&amp;gt;your_plain_password&amp;lt;/password&amp;gt;
+    &amp;lt;/server&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you don't like to write plain passwords in XML configuration files (like me), I strongly advise you to follow the &lt;a href=&quot;http://maven.apache.org/guides/mini/guide-encryption.html&quot;&gt;Maven tutorial on password encryption&lt;/a&gt;, &lt;b&gt;&lt;i&gt;but not before running the first successful build with the Enterprise edition&lt;/b&gt;&lt;/i&gt;. Just keep it for later.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;NOTE!&lt;/b&gt; If you are new to Maven, I strongly advise to comment out any &lt;mirror&gt; configurations from your &lt;strong&gt;settings.xml&lt;/strong&gt; (at least for the first run), since mirroring delegates the entire artifact resolution to one central repository which may have been wrongly configured, leading to unresolved artifacts during the build.&lt;/p&gt;
+
+&lt;h1&gt;Switch your project to Enterprise&lt;/h1&gt;
+
+&lt;p&gt;Open &lt;strong&gt;session-repo-amp/pom.xml&lt;/strong&gt; and set the following property values&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;alfresco.version&amp;gt;4.1.2&amp;lt;/alfresco.version&amp;gt;
+&amp;lt;alfresco.groupId&amp;gt;org.alfresco.enterprise&amp;lt;/alfresco.groupId&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You also need to change the repository configuration: instead of using the public Alfresco Maven repository (defined in your current pom file as &lt;b&gt;&lt;i&gt;alfresco-public&lt;/i&gt;&lt;/b&gt;), we need to switch to the private one. We don't need to add a new &lt;strong&gt;&lt;repository&gt;&lt;/strong&gt;, since &lt;b&gt;&lt;i&gt;all public artifacts are also served through the private repo&lt;/i&gt;&lt;/b&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;repository&amp;gt;
+  &amp;lt;id&amp;gt;alfresco-private-repository&amp;lt;/id&amp;gt;
+  &amp;lt;url&amp;gt;https://artifacts.alfresco.com/nexus/content/groups/private&amp;lt;/url&amp;gt;
+&amp;lt;/repository&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Make sure that the repository &lt;id&gt; matches with the one specified earlier in the &lt;strong&gt;settings.xml&lt;/strong&gt; file&lt;/p&gt;
+
+&lt;h1&gt;Run it (again)&lt;/h1&gt;
+
+&lt;p&gt;As before:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd session-repo-amp &amp;amp;&amp;amp; mvn integration-test -Pamp-to-run
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;And now?&lt;/h1&gt;
+
+&lt;p&gt;Why don't you leave a message on the &lt;a href=&quot;https://groups.google.com/forum/#!forum/maven-alfresco&quot;&gt;discussion list&lt;/a&gt; and share your development experience with the rest of the community? Also, if you have problems with the build, that's the right place to ask for help.&lt;/p&gt;
+</summary>
+</entry>
+
+
 <entry>
   <title>Fetching Alfresco Associations using regular expressions</title>
   <link href="http://blog.session.it/2013/04/09/alfresco-assocs-with-regexp/"/>
@@ -24,7 +137,7 @@ I've searched around some examples on how to do it, but there's not much, so her
 
 &lt;p&gt;The second code block does exactly the same, but avoiding a post-processing iteration and delivering a nice and clean 1-liner solution.&lt;/p&gt;
 
-&lt;p&gt;The last block defines another Regular Expression that matches all QNames of a given namespace. You can notice that the match is done upon the fully qualified QName, using the namespace URL, not it's prefix.&lt;/p&gt;
+&lt;p&gt;The last block defines another Regular Expression that matches all QNames of a given namespace. You can notice that the match is done upon the fully qualified QName, using the namespace URL, not its prefix.&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/maoo/5345612.js&quot;&gt;&lt;/script&gt;
 
