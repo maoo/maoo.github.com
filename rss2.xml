@@ -3,13 +3,33 @@
     <title type="text" xml:lang="en">Word of MAOO</title>
     <link type="application/atom+xml" href="http://blog.session.it/rss2/" rel="self"/>
     <link type="text" href="http://blog.session.it" rel="alternate"/>
-    <updated>2013-04-09T12:55:41+01:00</updated>
+    <updated>2013-04-09T14:31:37+01:00</updated>
     <id>http://blog.session.it</id>
     <author>
         <name>Maurizio Pillitu</name>
     </author>
     <rights>Copyright (c) 2010-2011 Maurizio Pillitu</rights>
     
+<entry>
+  <title>Fetching Alfresco Associations using regular expressions</title>
+  <link href="http://blog.session.it/2013/04/09/alfresco-assocs-with-regexp/"/>
+  <updated>2013-04-09T00:00:00+01:00</updated>
+  <id>http://blog.session.it/2013/04/09/alfresco-assocs-with-regexp/</id>
+  <summary type="html">&lt;p&gt;Long time no see ha?&lt;/p&gt;
+
+&lt;p&gt;I'd like to share with you (and keep track of) a simple code optimisation that allowed me write a better, cleaner and more performing Alfresco backend logic.
+I've searched around some examples on how to do it, but there's not much, so here we are!&lt;/p&gt;
+
+&lt;p&gt;In the first code block I am &lt;b&gt;&lt;i&gt;fetching all target associations from a node&lt;/i&gt;&lt;/b&gt; and - in a second stage - extract only those associations that I really need.&lt;/p&gt;
+
+&lt;p&gt;The second code block does exactly the same, but avoiding a post-processing iteration and delivering a nice and clean 1-liner solution.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/maoo/5345612.js&quot;&gt;&lt;/script&gt;
+
+</summary>
+</entry>
+
+
 <entry>
   <title>mmt-maven-plugin 0.1-SNAPSHOT released</title>
   <link href="http://blog.session.it/2012/05/15/mmt-maven-plugin-0.1-SNAPSHOT-released/"/>
