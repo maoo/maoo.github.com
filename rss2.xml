@@ -3,7 +3,7 @@
     <title type="text" xml:lang="en">Word of MAOO</title>
     <link type="application/atom+xml" href="http://blog.session.it/rss2.xml" rel="self"/>
     <link type="text/plain" href="http://blog.session.it" rel="alternate"/>
-    <updated>2013-04-09T20:45:07+01:00</updated>
+    <updated>2013-04-10T08:34:55+01:00</updated>
     <id>http://blog.session.it/</id>
     <author>
         <name>Maurizio Pillitu</name>
@@ -34,7 +34,7 @@ That's it. No database &amp;amp; no tomcat needed. True story.&lt;/p&gt;
 
 &lt;p&gt;First step is to generate a Maven project; for simplicity we will use the &lt;a href=&quot;https://artifacts.alfresco.com/nexus/content/repositories/alfresco-docs/alfresco-lifecycle-aggregator/latest/archetypes/alfresco-amp-archetype/index.html&quot;&gt;alfresco-amp-archetype&lt;/a&gt;, although the very same steps apply for the all-in-one archetype.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;mvn archetype:generate -DarchetypeCatalog=https://artifacts.alfresco.com/nexus/content/groups/public/archetype-catalog.xml -Dfilter=org.alfresco.maven.archetype
+&lt;pre&gt;&lt;code&gt;mvn archetype:generate -DarchetypeCatalog=https://artifacts.alfresco.com/nexus/content/groups/public/archetype-catalog.xml -Dfilter=org.alfresco.maven.archetype:
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The following command will ask you to define the following parameters:&lt;/p&gt;
