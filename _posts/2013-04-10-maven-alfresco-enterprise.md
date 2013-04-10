@@ -25,7 +25,7 @@ Generate a Maven Project using the archetypes
 ================
 First step is to generate a Maven project; for simplicity we will use the [alfresco-amp-archetype](https://artifacts.alfresco.com/nexus/content/repositories/alfresco-docs/alfresco-lifecycle-aggregator/latest/archetypes/alfresco-amp-archetype/index.html), although the very same steps apply for the all-in-one archetype.
 
-    mvn archetype:generate -DarchetypeCatalog=https://artifacts.alfresco.com/nexus/content/groups/public/archetype-catalog.xml -Dfilter=org.alfresco.maven.archetype
+    mvn archetype:generate -DarchetypeCatalog=https://artifacts.alfresco.com/nexus/content/groups/public/archetype-catalog.xml -Dfilter=org.alfresco.maven.archetype:
 
 The following command will ask you to define the following parameters:
 
