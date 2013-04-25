@@ -85,12 +85,9 @@ The mmt-maven-plugin have been deprecated in favour of the alfresco-maven-plugin
 <ul>
 <li><p>Define your POM as</p>
 
-<p>  <code></p>
-
-<pre><code>&lt;packaging&gt;amp&lt;/packaging&gt;
-</code></pre>
-
-<p>  </code></p></li>
+<p>  <code>
+    <packaging>amp</packaging>
+  </code></p></li>
 <li><p>Specify a module.properties file in the project's root folder, containing the properties</p>
 
 <p>  <pre>
@@ -133,39 +130,33 @@ The mmt-maven-plugin have been deprecated in favour of the alfresco-maven-plugin
 <ul>
 <li><p>Add a dependency to the Alfresco WAR webapp</p>
 
-<p>  <dependencies></p>
-
-<pre><code>&lt;dependency&gt;
-  &lt;groupId&gt;org.alfresco.enterprise&lt;/groupId&gt;
-  &lt;artifactId&gt;alfresco&lt;/artifactId&gt;
-  &lt;version&gt;4.0.1&lt;/version&gt;
-  &lt;type&gt;war&lt;/type&gt;
-&lt;/dependency&gt;
-</code></pre>
-
-<p>  </dependencies></p></li>
+<p>  <dependencies>
+    <dependency>
+      <groupId>org.alfresco.enterprise</groupId>
+      <artifactId>alfresco</artifactId>
+      <version>4.0.1</version>
+      <type>war</type>
+    </dependency>
+  </dependencies></p></li>
 <li><p>Add the mmt-plugin configuration to run the install goal after the AMP have been packaged</p>
 
-<p>  <plugin></p>
-
-<pre><code>&lt;groupId&gt;org.alfresco.maven.plugin&lt;/groupId&gt;
-&lt;artifactId&gt;mmt-maven-plugin&lt;/artifactId&gt;
-&lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;
-&lt;executions&gt;
-  &lt;execution&gt;
-    &lt;id&gt;unpack-amps&lt;/id&gt;
-    &lt;phase&gt;package&lt;/phase&gt;
-    &lt;goals&gt;
-      &lt;goal&gt;install&lt;/goal&gt;
-    &lt;/goals&gt;
-    &lt;configuration&gt;
-      &lt;singleAmp&gt;${project.build.directory}/${project.build.finalName}.${project.packaging}&lt;/singleAmp&gt;
-    &lt;/configuration&gt;
-  &lt;/execution&gt;
-&lt;/executions&gt;
-</code></pre>
-
-<p>  </plugin></p></li>
+<p>  <plugin>
+    <groupId>org.alfresco.maven.plugin</groupId>
+    <artifactId>mmt-maven-plugin</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <executions>
+      <execution>
+        <id>unpack-amps</id>
+        <phase>package</phase>
+        <goals>
+          <goal>install</goal>
+        </goals>
+        <configuration>
+          <singleAmp>${project.build.directory}/${project.build.finalName}.${project.packaging}</singleAmp>
+        </configuration>
+      </execution>
+    </executions>
+  </plugin></p></li>
 </ul>
 
 
