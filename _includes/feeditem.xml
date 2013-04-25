@@ -3,5 +3,5 @@
   <link href="http://blog.session.it{{ post.url }}/"/>
   <updated>{{ post.date | date_to_xmlschema }}</updated>
   <id>http://blog.session.it{{ post.url }}/</id>
-  <summary type="html">{{ post.content | xml_escape }}</summary>
+  <summary type="html">{{ post.content | truncatewords: 50 | strip_html | xml_escape }}</summary>
 </entry>
