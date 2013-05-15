@@ -46,7 +46,7 @@ The downside of this approach is that you will have to download all Alfresco Com
 
 It is as simple as
 
-    cd session-repo-amp && mvn integration-test -Pamp-to-run
+    cd session-repo-amp && mvn integration-test -Pamp-to-war
 
 (Maven will download roughly 300Mb during the first build; this is probably the best time to take a break)
 
