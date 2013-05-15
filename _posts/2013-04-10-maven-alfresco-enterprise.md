@@ -14,7 +14,7 @@ In both cases, you may have missed the 1.0.1 release, whose biggest improvement 
 
 Prerequisites
 ================
-In order to get at the bottom of this tutorial you need credentials (username/password) to access the [Alfresco Nexus instance](https://artifacts.alfresco.com/nexus)), where the Enterprise artifacts are hosted; using this link you will be able to search for dependencies, check which versions are available and get the Maven coordinates of the artifacts you need.
+In order to get at the bottom of this tutorial you need credentials (username/password) to access the [Alfresco Nexus instance](https://artifacts.alfresco.com/nexus)), where the Enterprise artifacts are hosted; use the Nexus web interface to search for dependencies, check versions and other coordinates of the artifacts you need.
 
 If you are an Alfresco customer and you want to request your credentials, you can follow this [internal article](https://support.alfresco.com/ics/support/default.asp?deptID=15026&task=knowledge&questionID=91)
 
