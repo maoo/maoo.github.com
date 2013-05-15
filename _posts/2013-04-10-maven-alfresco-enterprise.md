@@ -10,7 +10,7 @@ If you're an Alfresco aficionado, you should already know that last year we've r
 
 If it's the first time you hear about this, start with [Gab's post](http://mindthegab.com/2012/11/05/maven-alfresco-sdk-1-0-is-finally-out-and-ready-for-you-to-enjoy/) to read about the project's history and all pointers.
 
-In both cases, you may have missed the 1.0.1 release, whose biggest improvement is to allow the SDK to work with Alfresco Enterprise 4.1.2 (and later) versions. This post guides you through all the steps to build an Alfresco Enterprise customisation using the Maven SDK.
+In both cases, you may have missed the 1.0.1 release, whose biggest improvement is to allow the SDK to work with Alfresco Enterprise 4.1.2 (and later) versions. Earlier versions are not supported at the moment. This post guides you through all the steps to build an Alfresco Enterprise customisation using the Maven SDK.
 
 Prerequisites
 ================
