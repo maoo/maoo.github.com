@@ -95,7 +95,7 @@ Run it (again)
 ================
 As before:
 
-    cd session-repo-amp && mvn integration-test -Pamp-to-run
+    cd session-repo-amp && mvn integration-test -Pamp-to-war
 
 And now?
 ================
