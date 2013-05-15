@@ -19,7 +19,8 @@ In order to get at the bottom of this tutorial you need credentials (username/pa
 If you are an Alfresco customer and you want to request your credentials, you can follow this [internal article](https://support.alfresco.com/ics/support/default.asp?deptID=15026&task=knowledge&questionID=91)
 
 And Maven 3.0.x of course.
-That's it. No database & no tomcat needed. True story.
+
+That's it. No database nor tomcat needed. True story.
 
 Generate a Maven Project using the archetypes
 ================
