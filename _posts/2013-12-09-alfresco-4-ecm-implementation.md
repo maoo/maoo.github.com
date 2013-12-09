@@ -17,7 +17,7 @@ Considering the huge amount and quality of information contained in this book, I
 * If you're a devops team who's dealing with an Alfresco project but never heard of it 'til now
 
 ### 1. Introduction to Alfresco
-Probably the chapter I've enjoyed most; it introduces the direction Alfresco is taking in the evolution of ECM Open solutions: the Hybrid story, the key role of Open Standards, modern challenges of Business Automation and all other Alfresco "components" that map the wide landscape of the "Enterprise Collaboration" use cases.  This overwiew contains key concepts about the "smart & simple" approach to ECM that Alfresco is proposing; any "Product Owner" investing on Alfresco should have this knowledge extremely clear.
+Probably the chapter I've enjoyed most; it introduces the direction Alfresco is taking in the evolution of ECM Open solutions: the Hybrid story, the key role of Open Standards, modern challenges of Business Automation and all other Alfresco components that map the wide landscape of the _Enterprise Collaboration_ use cases.  This overwiew contains key concepts about the _*smart & simple*_ approach to ECM that Alfresco is proposing; any _Product Owner_ investing on Alfresco should have these concepts concepts clear.
 
 ### 2. Installing Alfresco
 This chapter goes through the Alfresco installation process using the Alfresco installer (one, amongst many, strategy to install Alfresco); it lists and describes the most important third-party libraries used by Alfresco and how to install/configure them.
