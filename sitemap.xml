@@ -3,7 +3,7 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">    
   <url>
     <loc>http://blog.session.it/</loc>
-    <lastmod>2013-05-15T20:33:49+01:00</lastmod>
+    <lastmod>2013-12-09T18:21:18+01:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -16,21 +16,21 @@
   
   <url>
     <loc>http://blog.session.it/2013/04/10/maven-alfresco-enterprise/</loc>
-    <lastmod>2013-04-10T00:00:00+01:00</lastmod>
+    <lastmod>2013-04-10T00:00:00+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
     <loc>http://blog.session.it/2013/04/09/alfresco-assocs-with-regexp/</loc>
-    <lastmod>2013-04-09T00:00:00+01:00</lastmod>
+    <lastmod>2013-04-09T00:00:00+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
     <loc>http://blog.session.it/2012/05/15/mmt-maven-plugin-0.1-SNAPSHOT-released/</loc>
-    <lastmod>2012-05-15T00:00:00+01:00</lastmod>
+    <lastmod>2012-05-15T00:00:00+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
