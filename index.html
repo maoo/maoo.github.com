@@ -61,11 +61,11 @@
   
   <img src="/img/post/packer-logo.png" class="primary" />
   
-  <p>In order to use Chef (<a href="https://www.youtube.com/watch?v=hYt0E84kYUI">the Berkshelf Way</a>) with Packer, it is a common approach to define a script that wraps the invocation of Packer and runs the <code>berks install</code> (or <code>berks vendor</code>) command that resolves the Chef cookbooks that you need; an interesting discussion can be found on <a href="https://github.com/mitchellh/packer/issues/590">Packer issue #590</a></p>
+  <p>In order to use Chef (<a href="https://www.youtube.com/watch?v=hYt0E84kYUI">the Berkshelf Way</a>) with <a href="https://packer.io/">Packer</a>, it is a common approach to define a script that wraps the invocation of Packer and runs the <code>berks install</code> (or <code>berks vendor</code>) command that resolves the Chef cookbooks that you need; an interesting discussion can be found on <a href="https://github.com/mitchellh/packer/issues/590">Packer issue #590</a></p>
 
-<p>I ended up writing <a href="https://github.com/Alfresco/packer-common">our "own" Packer wrapper script</a>, though it is hard to debug, error-prone and "hacky"; that's why I wanted to try enhancing Packer chef-solo provisioner.</p>
+<p>As others, we ended up with <a href="https://github.com/Alfresco/packer-common">our "own" Packer wrapper script</a>, though it is hard to debug, error-prone and "hacky"; that's why we tried to enhance Packer chef-solo provisioner.</p>
 
-<p>I added a <code>pre_local_commands</code> parameter to the <code>chef-solo</code> Packer provisioner, allowing to run commands and resolve cookbooks (and/or databags):</p>
+<p>To make the solution a bit more generic, we introduced a <code>pre_local_commands</code> parameter to the <code>chef-solo</code> Packer provisioner, allowing to run commands and resolve cookbooks (and/or databags), as in the following example:</p>
 
 <pre><code>"provisioners": [
   {
@@ -89,8 +89,8 @@
 <p>To test it, you can:</p>
 
 <ul>
-<li>checkout and build https://github.com/maoo/packer , branch <code>chef-solo-precommands</code> (follow the README)</li>
-<li>checkout https://github.com/maoo/packer_pre_command_test</li>
+<li>checkout and build <a href="https://github.com/maoo/packer">https://github.com/maoo/packer</a> , branch <code>chef-solo-precommands</code> (follow the README)</li>
+<li>checkout <a href="https://github.com/maoo/packer_pre_command_test">https://github.com/maoo/packer_pre_command_test</a></li>
 <li><code>packer build packer.json</code></li>
 </ul>
 
