@@ -21,7 +21,7 @@ To make the solution a bit more generic, we introduced a `pre_local_commands` pa
     ],
     "data_bags_path": "/tmp/databags/data_bags",
     "pre_local_commands" : [
-      "/bin/rm -rf /tmp/alfresco-databags",
+      "/bin/rm -rf /tmp/databags",
       "/usr/bin/git clone git@github.com:maoo/data_bags_test.git /tmp/databags",
       "/bin/rm -rf /tmp/berks-vendor",
       "/opt/chefdk/bin/berks vendor /tmp/berks-vendor"
