@@ -58,7 +58,9 @@
   
   <p>In order to use Chef (<a href="https://www.youtube.com/watch?v=hYt0E84kYUI">the Berkshelf Way</a>) with Packer, it is a common approach to define a script that wraps the invocation of Packer and runs the <code>berks install</code> (or <code>berks vendor</code>) command that resolves the Chef cookbooks that you need; an interesting discussion can be found on <a href="https://github.com/mitchellh/packer/issues/590">Packer issue #590</a></p>
 
-<p>I ended up writing <a href="https://github.com/Alfresco/packer-common">our "own" Packer wrapper script</a>, though it is hard to debug, error-prone and "hacky"; that's why I wanted to try enhancing Packer chef-solo provisioner; I added a <code>pre_local_commands</code> parameter to the <code>chef-solo</code> Packer provisioner, allowing to run commands and resolve cookbooks (and/or databags):</p>
+<p>I ended up writing <a href="https://github.com/Alfresco/packer-common">our "own" Packer wrapper script</a>, though it is hard to debug, error-prone and "hacky"; that's why I wanted to try enhancing Packer chef-solo provisioner.</p>
+
+<p>I added a <code>pre_local_commands</code> parameter to the <code>chef-solo</code> Packer provisioner, allowing to run commands and resolve cookbooks (and/or databags):</p>
 
 <pre><code>"provisioners": [
   {
@@ -77,12 +79,16 @@
   }
 </code></pre>
 
-<p>https://github.com/mitchellh/packer/compare/master...maoo:chef-solo-precommands</p>
+<p><a href="https://github.com/mitchellh/packer/compare/master...maoo:chef-solo-precommands">https://github.com/mitchellh/packer/compare/master...maoo:chef-solo-precommands</a></p>
 
-<p>To test it, you can
-- checkout and build https://github.com/maoo/packer , branch <code>chef-solo-precommands</code> (follow the README)
-- checkout https://github.com/maoo/packer_pre_command_test
-- <code>packer build packer.json</code></p>
+<p>To test it, you can:</p>
+
+<ul>
+<li>checkout and build https://github.com/maoo/packer , branch <code>chef-solo-precommands</code> (follow the README)</li>
+<li>checkout https://github.com/maoo/packer_pre_command_test</li>
+<li><code>packer build packer.json</code></li>
+</ul>
+
 
 <p>If you have the same issue, you may want to test this solution and share your thoughts.</p>
 
