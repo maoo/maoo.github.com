@@ -34,31 +34,66 @@
 
       <section>
         <div class="post">
-  <h1 class="title">
-    Posts filed under <a href="/category/amp/">#amp</a>
-  </h1>
-  <div id="archive" class="archive">
-    <ul>
-      
-        <li>
-  <span class="date">15 May 2012</span>
-  <a href="/2012/05/15/mmt-maven-plugin-0.1-SNAPSHOT-released">mmt-maven-plugin 0.1-SNAPSHOT released</a>
-  <span class="categories">
+  <h1>
+  <a href="/2015/06/15/berkshelf-and-packer">Adding Berkshelf feature to Packer</a>
+</h1>
+<blockquote class="date-wrapper">
+  <h5 class="date">
+    June 15, 2015
     
-    <a href="/category/alfresco">#alfresco</a>
+    - tagged 
     
-    <a href="/category/maven">#maven</a>
+    <a href="/category/packer">#packer</a>
     
-    <a href="/category/amp">#amp</a>
+    <a href="/category/chef">#chef</a>
     
-    <a href="/category/mmt">#mmt</a>
+    <a href="/category/berkshelf">#berkshelf</a>
     
-  </span>        
-</li> 
+    
+  </h5>
+</blockquote>
 
-      
-    </ul>
-  </div>
+  
+  <img src="/img/post/packer-logo.png" class="primary" />
+  
+  <p>In order to use Chef (<a href="https://www.youtube.com/watch?v=hYt0E84kYUI">the Berkshelf Way</a>) with <a href="https://packer.io/">Packer</a>, it is a common approach to define a script that wraps the invocation of Packer and runs the <code>berks install</code> (or <code>berks vendor</code>) command that resolves the Chef cookbooks that you need; an interesting discussion can be found on <a href="https://github.com/mitchellh/packer/issues/590">Packer issue #590</a></p>
+
+<p>As others, we ended up with <a href="https://github.com/Alfresco/packer-common">our "own" Packer wrapper script</a>, though it is hard to debug, error-prone and "hacky"; that's why we tried to enhance Packer chef-solo provisioner.</p>
+
+<p>To make the solution a bit more generic, we introduced a <code>pre_local_commands</code> parameter to the <code>chef-solo</code> Packer provisioner, allowing to run commands and resolve cookbooks (and/or databags), as in the following example:</p>
+
+<pre><code>"provisioners": [
+  {
+    "type": "chef-solo",
+    "cookbook_paths": [
+      "/tmp/berks-vendor"
+    ],
+    "data_bags_path": "/tmp/databags/data_bags",
+    "pre_local_commands" : [
+      "/bin/rm -rf /tmp/databags",
+      "/usr/bin/git clone git@github.com:maoo/data_bags_test.git /tmp/databags",
+      "/bin/rm -rf /tmp/berks-vendor",
+      "/opt/chefdk/bin/berks vendor /tmp/berks-vendor"
+    ],
+    "run_list": ["nginx::default"]
+  }
+</code></pre>
+
+<p><a href="https://github.com/mitchellh/packer/compare/master...maoo:chef-solo-precommands">https://github.com/mitchellh/packer/compare/master...maoo:chef-solo-precommands</a></p>
+
+<p>To test it, you can:</p>
+
+<ul>
+<li>checkout and build <a href="https://github.com/maoo/packer">https://github.com/maoo/packer</a> , branch <code>chef-solo-precommands</code> (follow the README)</li>
+<li>checkout <a href="https://github.com/maoo/packer_pre_command_test">https://github.com/maoo/packer_pre_command_test</a></li>
+<li><code>packer build packer.json</code></li>
+</ul>
+
+
+<p>If you have the same issue, you may want to test this solution and share your thoughts.</p>
+
+  
+
 </div>
 
       </section>

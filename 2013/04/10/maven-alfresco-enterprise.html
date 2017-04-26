@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Word of MAOO</title>
+    <meta name="generator" content="blog.session.it/0.1 | jekyll/0.11.0" />
+    <meta charset="utf-8" />
+    <meta name="description" content="Personal Blog of Maurizio Pillitu" />
+    <meta name="keywords" content="clojure,enlive,moustache,java,alfresco,lambdalf,performance" />
+    <link rel="stylesheet" href="/stylesheets/styles.css" />
+    <link rel="stylesheet" href="/stylesheets/pygment_trac.css" />
+    <link rel="stylesheet" href="/stylesheets/skuro.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="/">Word of maoo</a></h1>
+        <ul>
+          <li><a href="/archive">Browse the <strong>Archive</strong></a></li>
+          <li><a href="/category">Browse by <strong>Categories</strong></a></li>
+          <li><a target="_blank" href="http://keybase.io/maoo">Learn more <strong>About me</strong></a></li>
+        </ul>
+        <p class="persona">
+          <a href="https://github.com/maoo"><img src="/img/github.png" /></a>
+          <a href="http://linkedin.com/in/mpillitu"><img src="/img/linkedin.png" /></a>
+          <a href="https://twitter.com/maoo"><img src="/img/twitter.png" /></a>
+          <a href="/rss2.xml"><img src="/img/rss.png" /></a>
+        </p>
+      </header>
+
+      <section>
+        <div class="post">
+  <h1>
+  <a href="/2013/04/10/maven-alfresco-enterprise">Using Maven Alfresco SDK with the Enterprise edition</a>
+</h1>
+<blockquote class="date-wrapper">
+  <h5 class="date">
+    April 10, 2013
+    
+    - tagged 
+    
+    <a href="/category/alfresco">#alfresco</a>
+    
+    <a href="/category/maven">#maven</a>
+    
+    <a href="/category/sdk">#sdk</a>
+    
+    <a href="/category/build">#build</a>
+    
+    
+  </h5>
+</blockquote>
+
+  
+  <img src="/img/post/alfresco-logo.png" class="primary" />
+  
+  <p>If you're an Alfresco aficionado, you should already know that last year we've released a new <a href="https://artifacts.alfresco.com/nexus/content/repositories/alfresco-docs/alfresco-lifecycle-aggregator/latest/index.html">Alfresco SDK</a> to make developer's life easier and to provide a solid, consistent and reliable way to manage your Alfresco (customisation) projects.</p>
+
+<p>If it's the first time you hear about this, start with <a href="http://mindthegab.com/2012/11/05/maven-alfresco-sdk-1-0-is-finally-out-and-ready-for-you-to-enjoy/">Gab's post</a> to read about the project's history and all pointers.</p>
+
+<p>In both cases, you may have missed the 1.0.1 release, whose biggest improvement is to allow the SDK to work with Alfresco Enterprise 4.1.2 (and later) versions. Earlier versions are not supported at the moment. This post guides you through all the steps to build an Alfresco Enterprise customisation using the Maven SDK.</p>
+
+<h1>Prerequisites</h1>
+
+<p>In order to get at the bottom of this tutorial you need credentials (username/password) to access the <a href="https://artifacts.alfresco.com/nexus">Alfresco Nexus instance</a>), where the Enterprise artifacts are hosted; use the Nexus web interface to search for dependencies, check versions and other coordinates of the artifacts you need.</p>
+
+<p>If you are an Alfresco customer and you want to request your credentials, you can follow this <a href="https://support.alfresco.com/ics/support/default.asp?deptID=15026&amp;task=knowledge&amp;questionID=91">internal article</a></p>
+
+<p>And Maven 3.0.x of course.</p>
+
+<p>That's it. No database nor tomcat needed. True story.</p>
+
+<h1>Generate a Maven Project using the archetypes</h1>
+
+<p>First step is to generate a Maven project; for simplicity we will use the <a href="https://artifacts.alfresco.com/nexus/content/repositories/alfresco-docs/alfresco-lifecycle-aggregator/latest/archetypes/alfresco-amp-archetype/index.html">alfresco-amp-archetype</a>, although the very same steps apply for the all-in-one archetype.</p>
+
+<pre><code>mvn archetype:generate -DarchetypeCatalog=https://artifacts.alfresco.com/nexus/content/groups/public/archetype-catalog.xml -Dfilter=org.alfresco.maven.archetype:
+</code></pre>
+
+<p>The following command will ask you to define the following parameters:</p>
+
+<ul>
+<li><b>archetype</b> - at the time of writing there are only 2 types of archetypes available: <strong>alfresco-allinone-archetype</strong> (1) and <strong>alfresco-amp-archetype</strong> (2). Let's go with <b><i>1</i></b></li>
+<li><b>groupId</b> - no special rules apply, you can choose any string you want. In my case I choose <b><i>it.session.alfresco</i></b></li>
+<li><b>artifactId</b> - as above, with the difference that the artifactId will also be the name of the folder that Maven will create as a result of the current command execution. I choose <b><i>session-repo-amp</i></b></li>
+<li><b>version</b> - the SDK version to use. It is very important that you choose option #2 (<b><i>1.0.1</i></b>) or above, otherwise the generated project will fail during the first build.</li>
+</ul>
+
+
+<p>You will be asked to confirm all properties; type <b><i>Y</i></b>.</p>
+
+<p><b>BUILD SUCCESSFUL</b>? Let's move on!</p>
+
+<h1>Building the Maven Project using the community edition</h1>
+
+<p>Before testing the build with the Enterprise edition, it is strongly advised to try building with the community first.</p>
+
+<p>The downside of this approach is that you will have to download all Alfresco Community dependencies first and - after that - all Alfresco Enterprise ones. If you have a slow connection, you may consider to skip this step and move to the next one; however, if you're having a hard time with the SDK (Maven sometimes can be a bitch) I advise you to test this approach.</p>
+
+<p>It is as simple as</p>
+
+<pre><code>cd session-repo-amp &amp;&amp; mvn integration-test -Pamp-to-war
+</code></pre>
+
+<p>(Maven will download roughly 300Mb during the first build; this is probably the best time to take a break)</p>
+
+<p>Your command-line shell should end up with</p>
+
+<pre><code>INFO::Started SelectChannelConnector@0.0.0.0:8080
+[INFO] Started Jetty Server
+</code></pre>
+
+<p>Point your browser to <strong>http://localhost:8080/session-repo-amp</strong> and try to login using admin/admin; if everything works as expected you can move to the next section.</p>
+
+<h1>Configure access to private repositories</h1>
+
+<p>Open your <strong>~/.m2/settings.xml</strong> (or create one if it does not exist) and define the following <strong><server></strong> item</p>
+
+<pre><code>&lt;settings&gt;
+  ...
+  &lt;servers&gt;
+    ... 
+    &lt;server&gt;
+      &lt;id&gt;alfresco-private-repository&lt;/id&gt;
+      &lt;username&gt;your_usernmae&lt;/username&gt;
+      &lt;password&gt;your_plain_password&lt;/password&gt;
+    &lt;/server&gt;
+</code></pre>
+
+<p>If you don't like to write plain passwords in XML configuration files (like me), I strongly advise you to follow the <a href="http://maven.apache.org/guides/mini/guide-encryption.html">Maven tutorial on password encryption</a>, <b><i>but not before running the first successful build with the Enterprise edition</b></i>. Just keep it for later.</p>
+
+<p><b>NOTE!</b> If you are new to Maven, I strongly advise to comment out any <mirror> configurations from your <strong>settings.xml</strong> (at least for the first run), since mirroring delegates the entire artifact resolution to one central repository which may have been wrongly configured, leading to unresolved artifacts during the build.</p>
+
+<h1>Switch your project to Enterprise</h1>
+
+<p>Open <strong>session-repo-amp/pom.xml</strong> and set the following property values</p>
+
+<pre><code>&lt;alfresco.version&gt;4.1.2&lt;/alfresco.version&gt;
+&lt;alfresco.groupId&gt;org.alfresco.enterprise&lt;/alfresco.groupId&gt;
+</code></pre>
+
+<p>You also need to change the repository configuration: instead of using the public Alfresco Maven repository (defined in your current pom file as <b><i>alfresco-public</i></b>), we need to switch to the private one. We don't need to add a new <strong><repository></strong>, since <b><i>all public artifacts are also served through the private repo</i></b>.</p>
+
+<pre><code>&lt;repository&gt;
+  &lt;id&gt;alfresco-private-repository&lt;/id&gt;
+  &lt;url&gt;https://artifacts.alfresco.com/nexus/content/groups/private&lt;/url&gt;
+&lt;/repository&gt;
+</code></pre>
+
+<p>Make sure that the repository <id> matches with the one specified earlier in the <strong>settings.xml</strong> file</p>
+
+<h1>Run it (again)</h1>
+
+<p>As before:</p>
+
+<pre><code>cd session-repo-amp &amp;&amp; mvn integration-test -Pamp-to-war
+</code></pre>
+
+<h1>And now?</h1>
+
+<p>Why don't you leave a message on the <a href="https://groups.google.com/forum/#!forum/maven-alfresco">discussion list</a> and share your development experience with the rest of the community? Also, if you have problems with the build, that's the right place to ask for help.</p>
+
+  
+
+</div>
+
+      </section>
+
+    </div>
+    <footer>
+      <p><a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license"><img src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" style="border-width:0;margin-bottom:10px" alt="Creative Commons License" /></a> licensed under a Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">license</a>
+      <p><span rel="dct:type" property="dct:title" href="http://purl.org/dc/dcmitype/Text">Word of maoo blog</span> by <a rel="cc:attributionURL" property="cc:attributionName" href="http://session.it">Maurizio Pillitu</a></p>
+    </footer>
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      try{
+      var pageTracker = _gat._getTracker("UA-31737927-1");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+  </body>
+</html>

@@ -34,31 +34,40 @@
 
       <section>
         <div class="post">
-  <h1 class="title">
-    Posts filed under <a href="/category/amp/">#amp</a>
-  </h1>
-  <div id="archive" class="archive">
-    <ul>
-      
-        <li>
-  <span class="date">15 May 2012</span>
-  <a href="/2012/05/15/mmt-maven-plugin-0.1-SNAPSHOT-released">mmt-maven-plugin 0.1-SNAPSHOT released</a>
-  <span class="categories">
+  <h1>
+  <a href="/2013/04/09/alfresco-assocs-with-regexp">Fetching Alfresco Associations using regular expressions</a>
+</h1>
+<blockquote class="date-wrapper">
+  <h5 class="date">
+    April  9, 2013
+    
+    - tagged 
     
     <a href="/category/alfresco">#alfresco</a>
     
-    <a href="/category/maven">#maven</a>
     
-    <a href="/category/amp">#amp</a>
-    
-    <a href="/category/mmt">#mmt</a>
-    
-  </span>        
-</li> 
+  </h5>
+</blockquote>
 
-      
-    </ul>
-  </div>
+  
+  <img src="/img/post/link-building.jpg" class="primary" />
+  
+  <p>Long time no see ha?</p>
+
+<p>I'd like to share with you (and keep track of) a simple code optimisation that allowed me write a better, cleaner and more performing Alfresco backend logic.
+I've searched around some examples on how to do it, but there's not much, so here we are!</p>
+
+<p>In the first code block I am <b><i>fetching all target associations from a node</i></b> and - in a second stage - extract only those that I really need.</p>
+
+<p>The second code block does exactly the same, but avoiding a post-processing iteration and delivering a nice and clean 1-liner solution.</p>
+
+<p>The last block defines another Regular Expression that matches all QNames of a given namespace. You can notice that the match is done upon the fully qualified QName, using the namespace URL, not its prefix.</p>
+
+<script src="https://gist.github.com/maoo/5345612.js"></script>
+
+
+  
+
 </div>
 
       </section>

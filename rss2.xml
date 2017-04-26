@@ -3,7 +3,7 @@
     <title type="text" xml:lang="en">Word of MAOO</title>
     <link type="application/atom+xml" href="http://blog.session.it/rss2.xml" rel="self"/>
     <link type="text/plain" href="http://blog.session.it" rel="alternate"/>
-    <updated>2015-06-15T20:04:59+02:00</updated>
+    <updated>2017-04-26T11:09:18+02:00</updated>
     <id>http://blog.session.it/</id>
     <author>
         <name>Maurizio Pillitu</name>
@@ -24,7 +24,7 @@
   <link href="http://blog.session.it/2013/12/09/alfresco-4-ecm-implementation/"/>
   <updated>2013-12-09T00:00:00+01:00</updated>
   <id>http://blog.session.it/2013/12/09/alfresco-4-ecm-implementation/</id>
-  <summary type="html">This weekend I&#39;ve read Alfresco 4 Enterprise Content Management Implementation, published by Packt on July 2013; in this review I&#39;d like to provide some high-level description (and observations) of the most important chapters. The book is based on Alfresco Enterprise 4.1.4, released on April 2013; currently the latest Enterprise...</summary>
+  <summary type="html">This weekend I've read Alfresco 4 Enterprise Content Management Implementation, published by Packt on July 2013; in this review I'd like to provide some high-level description (and observations) of the most important chapters. The book is based on Alfresco Enterprise 4.1.4, released on April 2013; currently the latest Enterprise...</summary>
 </entry>
 
 
@@ -33,7 +33,7 @@
   <link href="http://blog.session.it/2013/04/10/maven-alfresco-enterprise/"/>
   <updated>2013-04-10T00:00:00+02:00</updated>
   <id>http://blog.session.it/2013/04/10/maven-alfresco-enterprise/</id>
-  <summary type="html">If you&#39;re an Alfresco aficionado, you should already know that last year we&#39;ve released a new Alfresco SDK to make developer&#39;s life easier and to provide a solid, consistent and reliable way to manage your Alfresco (customisation) projects. If it&#39;s the first time you hear about this, start with...</summary>
+  <summary type="html">If you're an Alfresco aficionado, you should already know that last year we've released a new Alfresco SDK to make developer's life easier and to provide a solid, consistent and reliable way to manage your Alfresco (customisation) projects. If it's the first time you hear about this, start with...</summary>
 </entry>
 
 
@@ -42,7 +42,7 @@
   <link href="http://blog.session.it/2013/04/09/alfresco-assocs-with-regexp/"/>
   <updated>2013-04-09T00:00:00+02:00</updated>
   <id>http://blog.session.it/2013/04/09/alfresco-assocs-with-regexp/</id>
-  <summary type="html">Long time no see ha? I&#39;d like to share with you (and keep track of) a simple code optimisation that allowed me write a better, cleaner and more performing Alfresco backend logic. I&#39;ve searched around some examples on how to do it, but there&#39;s not much, so here we are!...</summary>
+  <summary type="html">Long time no see ha? I'd like to share with you (and keep track of) a simple code optimisation that allowed me write a better, cleaner and more performing Alfresco backend logic. I've searched around some examples on how to do it, but there's not much, so here we are!...</summary>
 </entry>
 
 

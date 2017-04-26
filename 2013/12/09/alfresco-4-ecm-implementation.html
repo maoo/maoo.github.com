@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Word of MAOO</title>
+    <meta name="generator" content="blog.session.it/0.1 | jekyll/0.11.0" />
+    <meta charset="utf-8" />
+    <meta name="description" content="Personal Blog of Maurizio Pillitu" />
+    <meta name="keywords" content="clojure,enlive,moustache,java,alfresco,lambdalf,performance" />
+    <link rel="stylesheet" href="/stylesheets/styles.css" />
+    <link rel="stylesheet" href="/stylesheets/pygment_trac.css" />
+    <link rel="stylesheet" href="/stylesheets/skuro.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="/">Word of maoo</a></h1>
+        <ul>
+          <li><a href="/archive">Browse the <strong>Archive</strong></a></li>
+          <li><a href="/category">Browse by <strong>Categories</strong></a></li>
+          <li><a target="_blank" href="http://keybase.io/maoo">Learn more <strong>About me</strong></a></li>
+        </ul>
+        <p class="persona">
+          <a href="https://github.com/maoo"><img src="/img/github.png" /></a>
+          <a href="http://linkedin.com/in/mpillitu"><img src="/img/linkedin.png" /></a>
+          <a href="https://twitter.com/maoo"><img src="/img/twitter.png" /></a>
+          <a href="/rss2.xml"><img src="/img/rss.png" /></a>
+        </p>
+      </header>
+
+      <section>
+        <div class="post">
+  <h1>
+  <a href="/2013/12/09/alfresco-4-ecm-implementation">Reviewing Alfresco 4 Enterprise Content Management Implementation</a>
+</h1>
+<blockquote class="date-wrapper">
+  <h5 class="date">
+    December  9, 2013
+    
+    - tagged 
+    
+    <a href="/category/alfresco">#alfresco</a>
+    
+    <a href="/category/book">#book</a>
+    
+    <a href="/category/review">#review</a>
+    
+    
+  </h5>
+</blockquote>
+
+  
+  <img src="/img/post/alf-4-ecm-impl-book.jpg" class="primary" />
+  
+  <p>This weekend I've read <a href="http://www.packtpub.com/alfresco-4-enterprise-content-management-implementation/book">Alfresco 4 Enterprise Content Management Implementation</a>, published by Packt on July 2013; in this review I'd like to provide some high-level description (and observations) of the most important chapters.</p>
+
+<p>The book is based on Alfresco Enterprise 4.1.4, released on April 2013; currently the latest Enterprise version released is 4.2.0, which introduces some key features mentioned in this review.</p>
+
+<p>Considering the huge amount and quality of information contained in this book, I consider it almost mandatory to have:</p>
+
+<ul>
+<li>If you want to introduce Alfresco Enterprise in your company, but don't know how (yet)</li>
+<li>If you're going to design architectures and/or applications based on Alfresco</li>
+<li>If you're a devops team who's dealing with an Alfresco project but never heard of it 'til now</li>
+</ul>
+
+
+<h3>1. Introduction to Alfresco</h3>
+
+<p>Probably the chapter I've enjoyed most; it introduces the direction Alfresco is taking in the evolution of ECM Open solutions: the Hybrid story, the key role of Open Standards, modern challenges of Business Automation and all other Alfresco components that map the wide landscape of the <em>Enterprise Collaboration</em> use cases.  This overwiew contains key concepts about the <em><em>smart &amp; simple</em></em> approach to ECM that Alfresco is proposing; any <em>Product Owner</em> investing on Alfresco should have these concepts concepts clear.</p>
+
+<h3>2. Installing Alfresco</h3>
+
+<p>This chapter goes through the Alfresco installation process using the Alfresco installer (one, amongst many, strategy to install Alfresco); it lists and describes the most important third-party libraries used by Alfresco and how to install/configure them.</p>
+
+<p>I'd have expected more about the new <a href="http://docs.alfresco.com/4.2/topic/com.alfresco.enterprise.doc/concepts/dev-extensions-maven-sdk.html">Alfresco Maven SDK</a>, which is now considered the de-facto standard for building Alfresco customisations and plugins.</p>
+
+<p>I think that - especially for Enterprise needs - a chapter about installation should also mention concepts like Automation and Provisioning, using tools like <a href="https://github.com/maoo/chef-alfresco">Chef</a> and <a href="https://github.com/jurgenlust/puppet-alfresco">Puppet</a>, especially looking at the amount of <a href="http://summit.alfresco.com/barcelona/sessions/aws-cost-effective-scalable-secure-alfresco-deployments">related</a> <a href="http://summit.alfresco.com/barcelona/sessions/publishing-alfresco-solutions-aws-test-drive">speeches</a> <a href="http://summit.alfresco.com/barcelona/sessions/enabling-test-driven-rapid-dev-continuous-delivery-alfresco-apps">delivered</a> <a href="http://summit.alfresco.com/barcelona/sessions/alfresco-virtual-appliance">at</a> the Alfresco Summit 2013</p>
+
+<h3>3. Getting Started with Alfresco</h3>
+
+<p>I found this chapter maybe too dense, but full of very interesting info; it basically delivers</p>
+
+<ol>
+<li>How to use Alfresco as a Collaboration Suite as a first-time user (based on Alfresco Explorer interface, not Share); I'd have expected to see Alfresco Share being used instead of Alfresco Explorer, considering that the latter is an interface that Alfresco is just maintaining but not developing upon since a while (at least one year)</li>
+<li>How to perform administration tasks as a first-time Alfresco Administrator (using Alfresco Explorer); with Alfresco 4.2 a <a href="http://blogs.alfresco.com/wp/kevinr/2013/09/30/alfresco-repository-admin-console/">new Repository Admin Console</a> is available</li>
+<li>How to perform the first Alfresco configuration/run as a sysadmin (on Linux/Windows)</li>
+<li>How to shape your first Alfresco architecture as a J2EE architect (high-availability, fail-over, multi-tenancy)</li>
+</ol>
+
+
+<h3>4. Implementing Membership and Security</h3>
+
+<p>A deep and detailed explaination of the Alfresco Security Model (ACLs, authorities, permissions, roles); I found particularly interesting:</p>
+
+<ol>
+<li>Authentication and Authorisation explained</li>
+<li>Clear separation between configuration (out of the box features) and customisation</li>
+<li>Choosing the right security model for you (including examples for sso and ldap)</li>
+</ol>
+
+
+<p>The chapter is more interesting from a business perspective rather than technical; there are some interesting import/export scripts that allow to automate data migration</p>
+
+<h3>5. Implementing Document Management</h3>
+
+<p>The chapter presents the core Alfresco concepts (Spaces, Documents, Metadata, ...) using Alfresco Explorer as interface and guiding the reader through some of the mostly used features (like Versioning, Metadata editing, Transformation and Extraction, Checkout/Checkin, Categories and Tags and much much more); I'd have preferred to see Alfresco Share as user interface for this chapter.</p>
+
+<h3>8. Implementing Workflow</h3>
+
+<p>I found very valuable the clear distinction between built-in and customisable Workflows; the step-by-step tutorial on how to implement a custom workflow using the Eclipse Activiti Designer is very detailed (from design to deployment) and simple to follow.</p>
+
+<h3>9. Integrating External Applications with Alfresco</h3>
+
+<p>This chapter gives an overview of Alfresco built-in integrations (Office, Drupal, Facebook and some more), providing an example of custom integration using Webscripts (a very common practice due to the simplicity of Webscripts implementation). REST and CMIS API are also described in details; it's an interesting reading, mostly technical, although it can be useful to evaluate the level of integration of Alfresco with a specific external product.</p>
+
+<p>If you're interested in 4.2, you cannot miss <a href="http://ecmarchitect.com/archives/2013/09/15/3554">this great article</a> of Jeff Potts explaining what's new.</p>
+
+<h3>12. Search in Alfresco</h3>
+
+<p>The new Alfresco Search strategy implemented in 4 introduces many options and opportunities; this chapter provides a good overview of the Alfresco Search Service and the different (Lucene/Solr) engine configurations; it is extremely important - for any type of reader - to understand the potentials of the new search features, since it plays - in most cases - a key role in the overall platform performance.</p>
+
+  
+
+</div>
+
+      </section>
+
+    </div>
+    <footer>
+      <p><a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license"><img src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" style="border-width:0;margin-bottom:10px" alt="Creative Commons License" /></a> licensed under a Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">license</a>
+      <p><span rel="dct:type" property="dct:title" href="http://purl.org/dc/dcmitype/Text">Word of maoo blog</span> by <a rel="cc:attributionURL" property="cc:attributionName" href="http://session.it">Maurizio Pillitu</a></p>
+    </footer>
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      try{
+      var pageTracker = _gat._getTracker("UA-31737927-1");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+  </body>
+</html>
